@@ -27,8 +27,9 @@ SPM:
 
 Simple examples for each property wrapper.
 
-<details><summary>@Once</summary>
+<details><summary><strong>@Once</strong></summary>
 <p>
+
 A wrapper that allows to set a value only once after setting the initial value. This comes in useful in instances where you want to freeze the value after configuring it.
 
 For instance on configuration object, where you want to assign a default value, but give the user the ability to alter this value in a configuration callback.
@@ -63,8 +64,9 @@ init(_ config: (Config) -> Void) {
 </p>
 </details>
 
-<details><summary>@EventTrigger</summary>
+<details><summary><strong>@EventTrigger</strong></summary>
 <p>
+
 A wrapper that will trigger a `SimpleEvent` or `LazySimpleEvent`, e.g. `AnySimpleEvent` when the value changes. The value should conform to 	`Equatable`, and the enclosing class to `EventTriggerable`.
 
 This removes a lot of boilerplate code, going from:
@@ -116,8 +118,9 @@ If your property does not conform to `Equatable`, you could use `@LenientEventTr
 </p>
 </details>
 
-<details><summary>@LenientEventTrigger</summary>
+<details><summary><strong>@LenientEventTrigger</strong></summary>
 <p>
+
 Same as `@EventTrigger`, but without requiring to conform to `Equatable`, this will trigger every time the value hits `didSet`.
 </p>
 </details>
