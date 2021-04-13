@@ -100,7 +100,7 @@ class DefaultViewModel: ViewModel {
 ```
 
 To:
-```
+```swift
 class DefaultViewModel: ViewModel, EventTriggerable {
 
 	@EventTrigger public private(set) var foo: String
