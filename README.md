@@ -20,7 +20,7 @@ pod 'MMMPropertyWrappers'
 
 SPM:
 ```swift
-.package(url: "https://github.com/mediamonks/MMMPropertyWrappers", .upToNextMajor(from: "0.1"))
+.package(url: "https://github.com/mediamonks/MMMPropertyWrappers", .upToNextMajor(from: "0.1.0"))
 ```
 
 ## Usage
