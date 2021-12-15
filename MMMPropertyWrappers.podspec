@@ -6,7 +6,7 @@
 Pod::Spec.new do |s|
 
 	s.name = "MMMPropertyWrappers"
-	s.version = "0.1"
+	s.version = "0.2.0"
 	s.summary = "Small, useful, property wrappers."
 	s.description =  s.summary
 	s.homepage = "https://github.com/mediamonks/#{s.name}"

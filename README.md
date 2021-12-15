@@ -64,6 +64,70 @@ init(_ config: (Config) -> Void) {
 </p>
 </details>
 
+<details><summary><strong>@Lazy</strong></summary>
+<p>
+
+A wrapper that mimicks Swift's own `lazy var`, with the upside of the ability to reset the
+generated value. This can come in handy if you want to cleanup after chaning state for 
+instance, but want to avoid working with optionals (e.g. when values are always available 
+to begin with).
+
+It's also possible to update the closure that generates the value.
+
+```swift
+public final class ViewModel {
+    @Lazy public private(set) var myValue = MyClass(foo: false)
+    @Lazy public private(set) var myInteger = 1
+    
+    public func action() {
+		
+		print(myValue.foo) // Now myValue is instantiated, foo will be false.
+		print(myInteger) // == 1
+		
+		myInteger = 2
+		print(myInteger) // == 2
+		
+		_myValue.reset() // Now MyClass.deinit is hit.
+		_myInteger.reset()
+		
+		print(myValue.someValue) // Now myValue is re-instantiated.
+		print(myInteger) // == 1
+		
+		_myValue.update(MyClass(foo: true)) // The old MyValue now hits deinit.
+		_myInteger.update(50)
+		
+		print(myValue.foo) // Now myValue is instantiated, foo will be true.
+		print(myInteger) // == 50
+	}
+}
+
+// At call site
+let config = Config {
+    $0.myValue = true
+}
+```
+
+Now `config.myValue` is 'frozen', if you try setting it afterwards it will throw an `assertionFailure`. However, `config.otherValue` is still open, since the user decided not to alter that value, so it's wise to call `.freeze()` after your configuration block.
+
+```swift
+init(_ config: (Config) -> Void) {
+    config(self)
+
+    _myValue.freeze()
+    _otherValue.freeze()
+}
+```
+
+</p>
+</details>
+
+<details><summary><strong>@LazyConstant</strong></summary>
+<p>
+
+Same as `@Lazy`, but without the ability to modify the value.
+</p>
+</details>
+
 <details><summary><strong>@EventTrigger</strong></summary>
 <p>
 
