@@ -6,7 +6,7 @@
 Pod::Spec.new do |s|
 
 	s.name = "MMMPropertyWrappers"
-	s.version = "0.3.0"
+	s.version = "0.3.1"
 	s.summary = "Small, useful, property wrappers."
 	s.description =  s.summary
 	s.homepage = "https://github.com/mediamonks/#{s.name}"
@@ -17,7 +17,7 @@ Pod::Spec.new do |s|
 	s.ios.deployment_target = '11.0'
 	s.watchos.deployment_target = '3.0'
 	s.tvos.deployment_target = '10.0'
-	s.macos.deployment_target = '10.12'
+	s.osx.deployment_target = '10.12'
 
 	s.swift_versions = '5.3'
 	s.static_framework = true
@@ -30,10 +30,9 @@ Pod::Spec.new do |s|
 		ss.source_files = [ "Sources/#{s.name}/**/*.swift" ]
 	end
 
-	# CwlPreconditionTesting doesn't support CocoaPods.
-	#s.test_spec 'Tests' do |ss|
-	#	ss.source_files = "Tests/**/*.swift"
-	#end
+	s.test_spec 'Tests' do |ss|
+		ss.source_files = "Tests/**/*.swift"
+	end
 
 	s.default_subspec = 'Swift'
 end
