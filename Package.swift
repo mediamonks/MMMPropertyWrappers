@@ -4,7 +4,10 @@ import PackageDescription
 let package = Package(
     name: "MMMPropertyWrappers",
     platforms: [
-        .iOS(.v11)
+		.iOS(.v11),
+        .watchOS(.v3),
+        .tvOS(.v10),
+        .macOS(.v10_12)
     ],
     products: [
         .library(
@@ -13,8 +16,7 @@ let package = Package(
 		)
     ],
     dependencies: [
-		.package(url: "https://github.com/mediamonks/MMMObservables", .upToNextMajor(from: "1.2.0")),
-		.package(url: "https://github.com/mattgallagher/CwlPreconditionTesting", .upToNextMajor(from: "2.0.0"))
+		.package(url: "https://github.com/mediamonks/MMMObservables", .upToNextMajor(from: "1.4.0"))
     ],
     targets: [
         .target(
@@ -26,9 +28,7 @@ let package = Package(
         .testTarget(
             name: "MMMPropertyWrapperTests",
             dependencies: [
-				"MMMPropertyWrappers",
-				"CwlPreconditionTesting",
-				.product(name: "CwlPosixPreconditionTesting", package: "CwlPreconditionTesting")
+				"MMMPropertyWrappers"
 			]
 		)
     ]

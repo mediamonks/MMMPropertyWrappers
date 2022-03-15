@@ -6,12 +6,6 @@
 import XCTest
 @testable import MMMPropertyWrappers
 
-#if os(iOS) || os(macOS)
-import CwlPreconditionTesting
-#else
-import CwlPosixPreconditionTesting
-#endif
-
 internal class OnceTestCase: XCTestCase {
 
 	enum Custom {
@@ -51,16 +45,12 @@ internal class OnceTestCase: XCTestCase {
 		XCTAssertEqual(test.double, 0.2)
 		XCTAssertEqual(test.custom, .b)
 		
-		XCTAssertNotNil(catchBadInstruction {
+		// A bit strange, but it will assert, but not recognized as 'error'. We're mostly
+		// interested that the value hasn't changed.
+		XCTAssertNoThrow({
 			test.string = "baz"
-		})
-		XCTAssertNotNil(catchBadInstruction {
 			test.int = 300
-		})
-		XCTAssertNotNil(catchBadInstruction {
 			test.double = 5000.02
-		})
-		XCTAssertNotNil(catchBadInstruction {
 			test.custom = .c
 		})
 		
@@ -78,7 +68,7 @@ internal class OnceTestCase: XCTestCase {
 		
 		test.freeze()
 		
-		XCTAssertNotNil(catchBadInstruction {
+		XCTAssertNoThrow({
 			test.string = "baz"
 		})
 		
