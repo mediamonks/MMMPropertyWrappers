@@ -11,7 +11,7 @@ Small collection of property wrappers.
 
 Podfile:
 
-```
+```ruby
 source 'https://github.com/mediamonks/MMMSpecs.git'
 source 'https://github.com/CocoaPods/Specs.git'
 ...
@@ -19,6 +19,7 @@ pod 'MMMPropertyWrappers'
 ```
 
 SPM:
+
 ```swift
 .package(url: "https://github.com/mediamonks/MMMPropertyWrappers", .upToNextMajor(from: "0.1.0"))
 ```
