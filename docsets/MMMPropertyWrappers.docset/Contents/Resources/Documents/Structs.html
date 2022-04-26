@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Structures  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Section/Structures" class="dashAnchor"></a>
+
+    <a title="Structures  Reference"></a>
+
+    <header class="header">
+      <a href="https://media.monks.com">
+        <img src="img/logo.png" srcset="img/logo@2x.png 2x" alt="Media.Monks" class="header-logo" />
+      </a>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">MMMPropertyWrappers Reference</a>
+      <img class="carat" src="img/carat.png" alt=""/>
+      Structures  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions.html#/LazySimpleEvent">LazySimpleEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions.html#/SimpleEvent">SimpleEvent</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/AnySimpleEvent.html">AnySimpleEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/EventTriggerable.html">EventTriggerable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/EventTrigger.html">EventTrigger</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Lazy.html">Lazy</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/LazyConstant.html">LazyConstant</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/LenientEventTrigger.html">LenientEventTrigger</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Once.html">Once</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>Structures</h1>
+            <p>The following structures are available globally.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Struct/Once" class="dashAnchor"></a>
+                    <a class="token" href="#/">Once</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A wrapper that allows to set a value only once after setting the initial value. This comes in useful in instances where you
+want to freeze the value after configuring it.</p>
+
+<p>For instance on configuration object, where you want to assign a default value, but give the user the ability to alter this
+value in a configuration callback:</p>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Config</span> <span class="p">{</span>
+    <span class="kd">@Once</span> <span class="k">var</span> <span class="nv">myValue</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="kd">@Once</span> <span class="k">var</span> <span class="nv">otherValue</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span>
+
+    <span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">config</span><span class="p">:</span> <span class="p">(</span><span class="kt">Config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nf">config</span><span class="p">(</span><span class="k">self</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// At call site</span>
+<span class="k">let</span> <span class="nv">config</span> <span class="o">=</span> <span class="kt">Config</span> <span class="p">{</span>
+    <span class="nv">$0</span><span class="o">.</span><span class="n">myValue</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Now <code>config.myValue</code> is &lsquo;frozen&rsquo;, if you try setting it afterwards it will throw an <code>assertionFailure</code>. However,
+<code>config.otherValue</code> is still open, since the user decided not to alter that value, so it&rsquo;s wise to call <code>.freeze()</code>
+after your configuration block.</p>
+<pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span><span class="n">_</span> <span class="nv">config</span><span class="p">:</span> <span class="p">(</span><span class="kt">Config</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nf">config</span><span class="p">(</span><span class="k">self</span><span class="p">)</span>
+
+    <span class="n">_myValue</span><span class="o">.</span><span class="nf">freeze</span><span class="p">()</span>
+    <span class="n">_otherValue</span><span class="o">.</span><span class="nf">freeze</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre>
+
+                        <a href="Structs/Once.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Struct/EventTrigger" class="dashAnchor"></a>
+                    <a class="token" href="#/">EventTrigger</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A wrapper that will trigger a <code>SimpleEvent</code> or <code>LazySimpleEvent</code>, e.g. <code><a href="Protocols/AnySimpleEvent.html">AnySimpleEvent</a></code> when the value
+changes. The value should conform to    <code>Equatable</code>, and the enclosing class to <code><a href="Protocols/EventTriggerable.html">EventTriggerable</a></code>.</p>
+
+<p>This removes a lot of boilerplate code, going from:</p>
+<pre class="highlight swift"><code><span class="kd">protocol</span> <span class="kt">ViewModel</span> <span class="p">{</span>
+
+    <span class="k">var</span> <span class="nv">foo</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+    <span class="k">var</span> <span class="nv">bar</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+
+    <span class="k">var</span> <span class="nv">didChange</span><span class="p">:</span> <span class="kt">SimpleEventObservable</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">class</span> <span class="kt">DefaultViewModel</span><span class="p">:</span> <span class="kt">ViewModel</span> <span class="p">{</span>
+
+    <span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">foo</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">didSet</span> <span class="p">{</span>
+            <span class="n">_didChange</span><span class="o">.</span><span class="nf">trigger</span><span class="p">(</span><span class="nv">if</span><span class="p">:</span> <span class="n">foo</span> <span class="o">!=</span> <span class="n">oldValue</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">bar</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span>
+        <span class="k">didSet</span> <span class="p">{</span>
+            <span class="n">_didChange</span><span class="o">.</span><span class="nf">trigger</span><span class="p">(</span><span class="nv">if</span><span class="p">:</span> <span class="n">bar</span> <span class="o">!=</span> <span class="n">oldValue</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="k">let</span> <span class="nv">_didChange</span> <span class="o">=</span> <span class="kt">SimpleEvent</span><span class="p">()</span>
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">didChange</span><span class="p">:</span> <span class="kt">SimpleEventObservable</span> <span class="p">{</span> <span class="n">_didChange</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>To:</p>
+<pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">DefaultViewModel</span><span class="p">:</span> <span class="kt">ViewModel</span><span class="p">,</span> <span class="kt">EventTriggerable</span> <span class="p">{</span>
+
+    <span class="kd">@EventTrigger</span> <span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">foo</span><span class="p">:</span> <span class="kt">String</span>
+    <span class="kd">@EventTrigger</span> <span class="kd">public</span> <span class="kd">private(set)</span> <span class="k">var</span> <span class="nv">bar</span><span class="p">:</span> <span class="kt">String</span>
+
+    <span class="kd">private</span> <span class="k">let</span> <span class="nv">_didChange</span> <span class="o">=</span> <span class="kt">SimpleEvent</span><span class="p">()</span>
+    <span class="kd">public</span> <span class="k">var</span> <span class="nv">didChange</span><span class="p">:</span> <span class="kt">SimpleEventObservable</span> <span class="p">{</span> <span class="n">_didChange</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre>
+
+<p>Every time <code>foo</code> or <code>bar</code> is set, and the <code>value != oldValue</code>, the <code>_didChange</code> event will trigger.</p>
+
+<p>If your property does not conform to <code>Equatable</code>, you could use <code><a href="Structs/LenientEventTrigger.html">@LenientEventTrigger</a></code>.</p>
+
+                        <a href="Structs/EventTrigger.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Struct/LenientEventTrigger" class="dashAnchor"></a>
+                    <a class="token" href="#/">LenientEventTrigger</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Same as <code><a href="Structs/EventTrigger.html">@EventTrigger</a></code>, but without requiring to conform to <code>Equatable</code>, this will trigger every time the value hits <code>didSet</code>.</p>
+
+                        <a href="Structs/LenientEventTrigger.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Struct/LazyConstant" class="dashAnchor"></a>
+                    <a class="token" href="#/">LazyConstant</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Same as <code><a href="Structs/Lazy.html">@Lazy</a></code>, only without the ability to change the value.</p>
+
+                        <a href="Structs/LazyConstant.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Struct/Lazy" class="dashAnchor"></a>
+                    <a class="token" href="#/">Lazy</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>A wrapper that only generates the value opon accessing it, it&rsquo;s similar to <code>lazy var</code> except you have the ability to
+<code>reset()</code> the value to a <code>nil</code> state. This saves memory in some cases, as well as gives the oportunity to execute the
+(auto)closure again.</p>
+<pre class="highlight swift"><code><span class="kd">@Lazy</span> <span class="kd">public</span> <span class="kd">private(</span><span class="err">var</span><span class="kd">)</span> <span class="n">foo</span> <span class="o">=</span> <span class="kt">Bar</span><span class="p">()</span>
+<span class="kd">@Lazy</span> <span class="kd">public</span> <span class="kd">private(</span><span class="err">var</span><span class="kd">)</span> <span class="n">baz</span> <span class="o">=</span> <span class="s">"Foo"</span>
+
+<span class="c1">// Now Bar will be initialized</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+
+<span class="c1">// Can be upated like usual</span>
+<span class="n">baz</span> <span class="o">=</span> <span class="s">"Foo2"</span>
+
+<span class="c1">// Reset the state, we must access reference to the wrapper.</span>
+<span class="n">_foo</span><span class="o">.</span><span class="nf">reset</span><span class="p">()</span>
+<span class="n">_baz</span><span class="o">.</span><span class="nf">reset</span><span class="p">()</span>
+
+<span class="c1">// Now the baz will read "Foo" again, since we just reset it.</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">baz</span><span class="p">)</span> <span class="o">==</span> <span class="s">"Foo"</span>
+
+<span class="c1">// Update the initialiser. This will reset as well.</span>
+<span class="n">_foo</span><span class="o">.</span><span class="nf">update</span><span class="p">(</span><span class="kt">Bar</span><span class="p">(</span><span class="nv">flag</span><span class="p">:</span> <span class="kc">true</span><span class="p">))</span>
+</code></pre>
+
+<p>For more info and examples, look at <code>LazyTestCase</code>.</p>
+
+                        <a href="Structs/Lazy.html" class="slightly-smaller">See more</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2022 <a class="link" href="https://github.com/mediamonks/MMMPropertyWrappers" target="_blank" rel="external noopener">MediaMonks</a>. All rights reserved. (Last updated: 2022-04-26)</p>
+      <p></p>
+    </section>
+  </body>
+</html>

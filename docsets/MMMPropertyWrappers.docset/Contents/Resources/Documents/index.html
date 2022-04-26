@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>MMMPropertyWrappers  Reference</title>
+    <link rel="stylesheet" type="text/css" href="css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="js/jquery.min.js" defer></script>
+    <script src="js/jazzy.js" defer></script>
+    
+    <script src="js/lunr.min.js" defer></script>
+    <script src="js/typeahead.jquery.js" defer></script>
+    <script src="js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+
+    <a title="MMMPropertyWrappers  Reference"></a>
+
+    <header class="header">
+      <a href="https://media.monks.com">
+        <img src="img/logo.png" srcset="img/logo@2x.png 2x" alt="Media.Monks" class="header-logo" />
+      </a>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="index.html">MMMPropertyWrappers Reference</a>
+      <img class="carat" src="img/carat.png" alt=""/>
+      MMMPropertyWrappers  Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions.html#/LazySimpleEvent">LazySimpleEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Extensions.html#/SimpleEvent">SimpleEvent</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/AnySimpleEvent.html">AnySimpleEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Protocols/EventTriggerable.html">EventTriggerable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/EventTrigger.html">EventTrigger</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Lazy.html">Lazy</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/LazyConstant.html">LazyConstant</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/LenientEventTrigger.html">LenientEventTrigger</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Structs/Once.html">Once</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            
+            <h1 id='mmmpropertywrappers' class='heading'>MMMPropertyWrappers</h1>
+
+<p><a href="https://github.com/mediamonks/MMMPropertyWrappers/actions?query=workflow%3ABuild"><img src="https://github.com/mediamonks/MMMPropertyWrappers/workflows/Build/badge.svg" alt="Build"></a>
+<a href="https://github.com/mediamonks/MMMPropertyWrappers/actions?query=workflow%3ATest"><img src="https://github.com/mediamonks/MMMPropertyWrappers/workflows/Test/badge.svg" alt="Test"></a></p>
+
+<p>Small collection of property wrappers.</p>
+
+<p>(This is a part of <code>MMMTemple</code> suite of iOS libraries we use at <a href="https://www.mediamonks.com/">MediaMonks</a>.)</p>
+<h2 id='installation' class='heading'>Installation</h2>
+
+<p>Podfile:</p>
+<pre class="highlight ruby"><code><span class="n">source</span> <span class="s1">'https://github.com/mediamonks/MMMSpecs.git'</span>
+<span class="n">source</span> <span class="s1">'https://github.com/CocoaPods/Specs.git'</span>
+<span class="p">.</span><span class="nf">.</span><span class="p">.</span>
+<span class="nf">pod</span> <span class="s1">'MMMPropertyWrappers'</span>
+</code></pre>
+
+<p>SPM:</p>
+<pre class="highlight swift"><code><span class="o">.</span><span class="nf">package</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="s">"https://github.com/mediamonks/MMMPropertyWrappers"</span><span class="p">,</span> <span class="o">.</span><span class="nf">upToNextMajor</span><span class="p">(</span><span class="nv">from</span><span class="p">:</span> <span class="s">"0.1.0"</span><span class="p">))</span>
+</code></pre>
+<h2 id='usage' class='heading'>Usage</h2>
+
+<p>Simple examples for each property wrapper.</p>
+
+<details><summary><strong>@Once</strong></summary>
+<p>
+
+A wrapper that allows to set a value only once after setting the initial value. This comes in useful in instances where you want to freeze the value after configuring it.
+
+For instance on configuration object, where you want to assign a default value, but give the user the ability to alter this value in a configuration callback.
+
+&ldquo;`swift
+class Config {
+    @Once var myValue: Bool = false
+    @Once var otherValue: Bool = false
+
+    init(_ config: (Config) -> Void) {
+        config(self)
+    }
+}
+
+// At call site
+let config = Config {
+    $0.myValue = true
+}
+&rdquo;`
+
+Now `config.myValue` is &lsquo;frozen&rsquo;, if you try setting it afterwards it will throw an `assertionFailure`. However, `config.otherValue` is still open, since the user decided not to alter that value, so it&rsquo;s wise to call `.freeze()` after your configuration block.
+
+&ldquo;`swift
+init(_ config: (Config) -> Void) {
+    config(self)
+
+    _myValue.freeze()
+    _otherValue.freeze()
+}
+&rdquo;`
+
+</p>
+</details>
+
+<details><summary><strong>@Lazy</strong></summary>
+<p>
+
+A wrapper that mimicks Swift&rsquo;s own `lazy var`, with the upside of the ability to reset the
+generated value. This can come in handy if you want to cleanup after chaning state for 
+instance, but want to avoid working with optionals (e.g. when values are always available 
+to begin with).
+
+It&rsquo;s also possible to update the closure that generates the value.
+
+&ldquo;`swift
+public final class ViewModel {
+    @Lazy public private(set) var myValue = MyClass(foo: false)
+    @Lazy public private(set) var myInteger = 1
+    
+    public func action() {
+        
+        print(myValue.foo) // Now myValue is instantiated, foo will be false.
+        print(myInteger) // == 1
+        
+        myInteger = 2
+        print(myInteger) // == 2
+        
+        _myValue.reset() // Now MyClass.deinit is hit.
+        _myInteger.reset()
+        
+        print(myValue.someValue) // Now myValue is re-instantiated.
+        print(myInteger) // == 1
+        
+        _myValue.update(MyClass(foo: true)) // The old MyValue now hits deinit.
+        _myInteger.update(50)
+        
+        print(myValue.foo) // Now myValue is instantiated, foo will be true.
+        print(myInteger) // == 50
+    }
+}
+
+// At call site
+let config = Config {
+    $0.myValue = true
+}
+&rdquo;`
+
+Now `config.myValue` is &lsquo;frozen&rsquo;, if you try setting it afterwards it will throw an `assertionFailure`. However, `config.otherValue` is still open, since the user decided not to alter that value, so it&rsquo;s wise to call `.freeze()` after your configuration block.
+
+&ldquo;`swift
+init(_ config: (Config) -> Void) {
+    config(self)
+
+    _myValue.freeze()
+    _otherValue.freeze()
+}
+&rdquo;`
+
+</p>
+</details>
+
+<details><summary><strong>@LazyConstant</strong></summary>
+<p>
+
+Same as `@Lazy`, but without the ability to modify the value.
+</p>
+</details>
+
+<details><summary><strong>@EventTrigger</strong></summary>
+<p>
+
+A wrapper that will trigger a `SimpleEvent` or `LazySimpleEvent`, e.g. `AnySimpleEvent` when the value changes. The value should conform to     `Equatable`, and the enclosing class to `EventTriggerable`.
+
+This removes a lot of boilerplate code, going from:
+
+&ldquo;`swift
+protocol ViewModel {
+
+    var foo: String { get }
+    var bar: String { get }
+
+    var didChange: SimpleEventObservable { get }
+}
+
+class DefaultViewModel: ViewModel {
+
+    public private(set) var foo: String {
+        didSet {
+            _didChange.trigger(if: foo != oldValue)
+        }
+    }
+
+    public private(set) var bar: String {
+        didSet {
+            _didChange.trigger(if: bar != oldValue)
+        }
+    }
+
+    private let _didChange = SimpleEvent()
+    public var didChange: SimpleEventObservable { _didChange }
+}
+&rdquo;`
+
+To:
+&ldquo;`swift
+class DefaultViewModel: ViewModel, EventTriggerable {
+
+    @EventTrigger public private(set) var foo: String
+    @EventTrigger public private(set) var bar: String
+
+    private let _didChange = SimpleEvent()
+    public var didChange: SimpleEventObservable { _didChange }
+}
+&rdquo;`
+
+Every time `foo` or `bar` is set, and the `value != oldValue`, the `_didChange` event will trigger.
+
+If your property does not conform to `Equatable`, you could use `@LenientEventTrigger`.
+
+</p>
+</details>
+
+<details><summary><strong>@LenientEventTrigger</strong></summary>
+<p>
+
+Same as `@EventTrigger`, but without requiring to conform to `Equatable`, this will trigger every time the value hits `didSet`.
+</p>
+</details>
+<h2 id='ready-for-liftoff' class='heading'>Ready for liftoff? 🚀</h2>
+
+<p>We&rsquo;re always looking for talent. Join one of the fastest-growing rocket ships in
+the business. Head over to our <a href="https://media.monks.com/careers">careers page</a>
+for more info!</p>
+
+          </div>
+        </section>
+
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2022 <a class="link" href="https://github.com/mediamonks/MMMPropertyWrappers" target="_blank" rel="external noopener">MediaMonks</a>. All rights reserved. (Last updated: 2022-04-26)</p>
+      <p></p>
+    </section>
+  </body>
+</html>

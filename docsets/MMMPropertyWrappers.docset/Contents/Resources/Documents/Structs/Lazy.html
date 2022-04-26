@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Lazy Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Struct/Lazy" class="dashAnchor"></a>
+
+    <a title="Lazy Structure Reference"></a>
+
+    <header class="header">
+      <a href="https://media.monks.com">
+        <img src="../img/logo.png" srcset="../img/logo@2x.png 2x" alt="Media.Monks" class="header-logo" />
+      </a>
+    
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">MMMPropertyWrappers Reference</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      Lazy Structure Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions.html#/LazySimpleEvent">LazySimpleEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions.html#/SimpleEvent">SimpleEvent</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/AnySimpleEvent.html">AnySimpleEvent</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/EventTriggerable.html">EventTriggerable</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/EventTrigger.html">EventTrigger</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Lazy.html">Lazy</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/LazyConstant.html">LazyConstant</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/LenientEventTrigger.html">LenientEventTrigger</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/Once.html">Once</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>Lazy</h1>
+            <p>A wrapper that only generates the value opon accessing it, it&rsquo;s similar to <code>lazy var</code> except you have the ability to
+<code>reset()</code> the value to a <code>nil</code> state. This saves memory in some cases, as well as gives the oportunity to execute the
+(auto)closure again.</p>
+<pre class="highlight swift"><code><span class="kd">@Lazy</span> <span class="kd">public</span> <span class="kd">private(</span><span class="err">var</span><span class="kd">)</span> <span class="n">foo</span> <span class="o">=</span> <span class="kt">Bar</span><span class="p">()</span>
+<span class="kd">@Lazy</span> <span class="kd">public</span> <span class="kd">private(</span><span class="err">var</span><span class="kd">)</span> <span class="n">baz</span> <span class="o">=</span> <span class="s">"Foo"</span>
+
+<span class="c1">// Now Bar will be initialized</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">foo</span><span class="p">)</span>
+
+<span class="c1">// Can be upated like usual</span>
+<span class="n">baz</span> <span class="o">=</span> <span class="s">"Foo2"</span>
+
+<span class="c1">// Reset the state, we must access reference to the wrapper.</span>
+<span class="n">_foo</span><span class="o">.</span><span class="nf">reset</span><span class="p">()</span>
+<span class="n">_baz</span><span class="o">.</span><span class="nf">reset</span><span class="p">()</span>
+
+<span class="c1">// Now the baz will read "Foo" again, since we just reset it.</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">baz</span><span class="p">)</span> <span class="o">==</span> <span class="s">"Foo"</span>
+
+<span class="c1">// Update the initialiser. This will reset as well.</span>
+<span class="n">_foo</span><span class="o">.</span><span class="nf">update</span><span class="p">(</span><span class="kt">Bar</span><span class="p">(</span><span class="nv">flag</span><span class="p">:</span> <span class="kc">true</span><span class="p">))</span>
+</code></pre>
+
+<p>For more info and examples, look at <code>LazyTestCase</code>.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/init(wrappedValue:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">init(wrappedValue:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Property/wrappedValue" class="dashAnchor"></a>
+                    <a class="token" href="#/">wrappedValue</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/reset()" class="dashAnchor"></a>
+                    <a class="token" href="#/">reset()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Resets the lazy value, so the closure to generate will be called again upon access.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/"></a>
+                    <a name="//apple_ref/swift/Method/update(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/">update(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Update the autoclosure for generating the lazy value. This will also reset the value.</p>
+
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2022 <a class="link" href="https://github.com/mediamonks/MMMPropertyWrappers" target="_blank" rel="external noopener">MediaMonks</a>. All rights reserved. (Last updated: 2022-04-26)</p>
+      <p></p>
+    </section>
+  </body>
+</html>
